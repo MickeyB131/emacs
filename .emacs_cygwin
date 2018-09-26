@@ -1,0 +1,748 @@
+; Shayne Steele (steele@cs.fsu.edu)
+; This is my .emacs file I use on a Windows NT 4.0 Servise Pack 4 machine
+; The version of Emacs I use is 20.3.7.1
+; See the NT Emacs FAQ at
+; http://www.cs.washington.edu/homes/voelker/ntemacs.html
+; and see the Emacs Homepage at
+; http://www.emacs.org/
+
+;;(set-default-font "Consolas-11")
+;; (set-face-font 'default "-outline-Consolas-normal-r-normal-normal-15-97-96-96-c-*-iso8859-1")
+
+;; Set the load path for lisp.
+;;(setq load-path
+;;    (nconc load-path (list "C:/emacsMWB/site-lisp" )))
+;;(setq load-path (cons  "c:/emacsmwb/lisp source/w3-4.0pre.47" load-path))
+ ; Set titles for frame and icon (%f == file name, %b == buffer name)
+(setq frame-title-format "Emacs - %f")
+(setq icon-title-format "Emacs - %b")
+; Display settings
+; default size and color options for all frames
+(setq default-frame-alist
+ '(
+; frame width and height
+    (width             . 81)
+    (height            . 33)
+; foreground, background, and cursor colors
+    (foreground-color  . "grey8")
+    (background-color  . "grey92")
+;    (foreground-color  . "light grey")
+;    (background-color  . "dark blue")
+    (cursor-color      . "red3")
+  )
+)
+; places top left corner of initial frame at location (0, 80) on screen
+(setq initial-frame-alist
+ '(
+    (top               . 0)
+    (left              . 80)
+  )
+)
+ ; Colorized fonts
+; Turn on font-lock in all modes that support it
+(global-font-lock-mode t)
+; Maximum colors
+(setq font-lock-maximum-decoration t)
+; Highlighting
+; highlight region between point and mark
+(setq transient-mark-mode t)
+; highlight during query
+(setq query-replace-highlight t)
+; highlight incremental search
+(setq search-highlight t)
+ ; Show matching parens
+(show-paren-mode 1)
+ ; Display the column number of the point in the mode line
+(column-number-mode t)
+ ; Make Text mode the default mode for new buffers
+; turn on Auto Fill mode automatically in Text mode
+(setq default-major-mode 'text-mode)
+;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
+ ; 80 column wide lines when Fill mode is on
+(setq set-fill-column 80)
+; set the default tab width to 4 spaces.
+(setq-default tab-width 4)
+ ; Start off in "Home" dir.
+(cd "~/")
+ ;; I use these once in a while
+;; Ensure newline at end of all files
+;;(setq require-final-newline t)
+;;
+;; Add Line numbers when printing (GREAT when printing out code)
+;;(setq ps-line-number t)
+
+;;(setq printer-name "//richserver/laserjet")
+ ; time display is last because during .emacs debugging if .emacs file is OK
+; then time will display, otherwise I know that entire .emacs file was not read
+; Display time in the mode line
+(display-time)
+
+ ; hooks for diary appointments
+;(add-hook 'diary-hook 'appt-make-list)
+;(diary 0)
+ ; Prevent shell commands being echoed.
+(defun my-comint-init()
+  (setq comint-process-echoes t))
+(add-hook 'comint-mode-hook'my-comint-init)
+ ; Make CPerl-mode the default
+(defalias 'perl-mode 'cperl-mode)
+;(autoload 'perl-mode "cperl-mode" "alternate mode for editing Perl programs" t)
+
+;;(require 'org-install)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(cperl-close-paren-offset -4)
+ '(cperl-continued-statement-offset 4)
+ '(cperl-indent-level 4)
+ '(cperl-indent-parens-as-block t)
+ '(cperl-tab-always-indent t)
+ '(display-time-mode t)
+ '(global-pabbrev-mode nil)
+ '(helm-mode t)
+ '(holiday-other-holidays nil)
+ '(inhibit-startup-screen t)
+ '(ivy-mode t)
+ '(org-agenda-files (quote ("/cygdrive/h/Org/FujiXerox.org")))
+ '(org-babel-load-languages
+   (quote
+    ((emacs-lisp . t)
+     (perl . t)
+     (sql . t)
+     (sqlite . t)
+     (shell . t)
+     (js . t)
+     (css . t)
+     (calc . t)
+     (R . t)
+     (latex . t))))
+ '(org-duration-format (quote h:mm))
+ '(org-file-apps
+   (quote
+    ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . default)
+     ("\\.docx\\'" . default))))
+ '(package-archives
+   (quote
+    (("gnu" . "http://elpa.gnu.org/packages/")
+     ("melpa-stable" . "http://stable.melpa.org/packages/")
+     ("melpa" . "http://melpa.org/packages/"))))
+ '(package-enable-at-startup t)
+ '(package-selected-packages
+   (quote
+    (ergoemacs-mode xah-fly-keys evil syntactic-close dired-quick-sort helm-swoop org-clock-csv code-archive ob-sql-mode deft powerthesaurus diffview smartparens paredit academic-phrases json-mode helm-mt multi-term pabbrev counsel-spotify counsel ivy icicles origami projectile embrace olivetti plsense company-plsense format-sql figlet crosshairs yaml-mode ac-helm iedit move-text pdf-tools helm-ispell treemacs vdiff undo-tree csv-mode multiple-cursors which-key web-mode rainbow-delimiters helm auto-complete yasnippet json-navigator company dash magit)))
+ '(show-paren-mode t)
+ '(sql-connection-alist
+   (quote
+    (("ITDEV_test"
+      (sql-product
+       (quote oracle))
+      (sql-user "itdevctl")
+      (sql-password "itdevctl")
+      (sql-database "ismelha4t/IESVIC4"))
+     ("ITDEV_prod"
+      (sql-product
+       (quote oracle))
+      (sql-user "itdevctl")
+      (sql-password "itdevctl")
+      (sql-database "ismelha4/IESVIC4"))
+     ("EAU_uat"
+      (sql-product
+       (quote oracle))
+      (sql-user "eau_uat")
+      (sql-password "SD2RUadm1n")
+      (sql-database "meldbu001lx/SD2R01U"))
+     ("EAU_prd"
+      (sql-product
+       (quote oracle))
+      (sql-user "eau_prd")
+      (sql-password "SD2RPadm1n")
+      (sql-database "meldbs020lx/SD2R20PR"))
+     ("EA_test_legacy"
+      (sql-product
+       (quote oracle))
+      (sql-user "txu")
+      (sql-password "amp3res")
+      (sql-database "ismelha4t/IESVIC4"))
+     ("EA_prod_legacy"
+      (sql-product
+       (quote oracle))
+      (sql-user "txu")
+      (sql-password "amp3res")
+      (sql-database "ismelha4.melb.hpa/IESVIC4")))))
+ '(sql-login-hook nil)
+ '(sql-oracle-program "sqlplus")
+ '(tool-bar-mode nil)
+ '(tramp-remote-path
+   (quote
+    (tramp-default-remote-path "/prod/bin/git/bin/git" "/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin" "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin" "/opt/bin" "/opt/sbin" "/opt/local/bin")) nil (tramp))
+ '(transient-mark-mode t))
+ (put 'downcase-region 'disabled nil)
+ (put 'upcase-region 'disabled nil)
+; CUA windows cut and paste mode
+(cua-mode t)
+
+
+;; Set the exact place for the ftp program.
+(setq ange-ftp-ftp-program-name "c:/windows/system32/ftp.exe")
+;; Setup so cygwin is the shell
+;; This assumes that Cygwin is installed in C:\cygwin (the
+;; default) and that C:\cygwin\bin is not already in your
+;; Windows Path (it generally should not be).
+;;
+(setq exec-path (cons "C:/cygwin64/bin" exec-path))
+(setenv "PATH" (concat "C:\\cygwin64\\bin;" (getenv "PATH")))
+;;
+;; NT-emacs assumes a Windows command shell, which you change
+;; here.
+;;
+;;(setq process-coding-system-alist '(("bash" . undecided-unix)))
+;;(setq shell-file-name "bash")
+;;(setenv "SHELL" shell-file-name)
+;;(setq explicit-shell-file-name shell-file-name)
+
+(add-hook 'comint-output-filter-functions
+    'shell-strip-ctrl-m nil t)
+(add-hook 'comint-output-filter-functions
+    'comint-watch-for-password-prompt nil t)
+(setq explicit-shell-file-name "bash.exe")
+;; For subprocesses invoked via the shell
+;; (e.g., "shell -c command")
+(setq shell-file-name explicit-shell-file-name)
+
+
+;;
+;; This removes unsightly ^M characters that would otherwise
+;; appear in the output of java applications.
+;;
+(add-hook 'comint-output-filter-functions
+              'comint-strip-ctrl-m)
+
+;; understand cygwin mounts
+;;(require 'cygwin-mount)
+;;(cygwin-mount-activate)
+
+;; PLSQL mode
+(require 'plsql)
+(setq auto-mode-alist
+      (append
+       '(("\\.\\(p\\(?:k[bgh]\\|ls\\)\\|sql\\|trg\\|mv\\|vew\\|dba\\)\\'" . plsql-mode))
+  auto-mode-alist))
+
+;; Use 4 space indents via cperl mode
+
+
+;; Insert spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+
+
+;; Make sure all backup files are in the one place.
+(setq backup-directory-alist '(("."."~/.emacs_saves"))
+      backup-by-copying t
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+
+;; Don't show the startup screen
+(setq inhibit-startup-message t)
+
+;; Set a visible bell
+(setq visible-bell t)
+
+(if (eq system-type 'darwin)
+  (setq exec-path
+     (append
+      '("/usr/local/bin"
+        "/opt/local/bin")
+      exec-path)))
+
+     ; Shayne Steele (steele@cs.fsu.edu)
+     ; This is my .emacs file I use on a Windows NT 4.0 Servise Pack 4 machine
+     ; The version of Emacs I use is 20.3.7.1
+     ; See the NT Emacs FAQ at
+     ; http://www.cs.washington.edu/homes/voelker/ntemacs.html
+     ; and see the Emacs Homepage at
+     ; http://www.emacs.org/
+
+
+(set-default-font "Consolas-12")
+;;(set-face-font 'default "-outline-Consolas-normal-r-normal-normal-13-97-96-96-c-*-iso8859-1")
+
+;; Set the load path for lisp.
+;;(setq load-path
+;;    (nconc load-path (list "C:/emacsMWB/site-lisp" )))
+;;(setq load-path (cons  "c:/emacsmwb/lisp source/w3-4.0pre.47" load-path))
+
+;; Set titles for frame and icon (%f == file name, %b == buffer name)
+(setq frame-title-format "Emacs - %f")
+(setq icon-title-format "Emacs - %b")
+
+;; Display settings
+;; default size and color options for all frames
+(setq default-frame-alist
+      '(
+        ;; frame width and height
+        (width             . 81)
+        (height            . 33)
+        ;; foreground, background, and cursor colors
+        (foreground-color  . "grey8")
+        (background-color  . "grey92")
+        ;;    (foreground-color  . "light grey")
+        ;;    (background-color  . "dark blue")
+        (cursor-color      . "red3")
+        )
+      )
+;; places top left corner of initial frame at location (0, 80) on screen
+(setq initial-frame-alist
+      '(
+        (top               . 0)
+        (left              . 80)
+        )
+      )
+
+;; Colorized fonts
+;; Turn on font-lock in all modes that support it
+(global-font-lock-mode t)
+;; Maximum colors
+(setq font-lock-maximum-decoration t)
+
+;; Highlighting
+;; highlight region between point and mark
+(setq transient-mark-mode t)
+;; highlight during query
+(setq query-replace-highlight t)
+;; highlight incremental search
+(setq search-highlight t)
+
+;; Show matching parens
+(show-paren-mode 1)
+
+;; Display the column number of the point in the mode line
+(column-number-mode t)
+
+;; Make Text mode the default mode for new buffers
+;; turn on Auto Fill mode automatically in Text mode
+(setq default-major-mode 'text-mode)
+;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+                                        ; 80 column wide lines when Fill mode is on
+(setq set-fill-column 80)
+                                        ; set the default tab width to 4 spaces.
+(setq-default tab-width 4)
+
+;; Start off in "H:/" dir.
+(cd "/cygdrive/h")
+
+;; I use these once in a while
+;; Ensure newline at end of all files
+;;(setq require-final-newline t)
+;;
+;; Add Line numbers when printing (GREAT when printing out code)
+;;(setq ps-line-number t)
+
+;; time display is last because during .emacs debugging if .emacs file is OK
+;; then time will display, otherwise I know that entire .emacs file was not read
+;; Display time in the mode line
+(display-time)
+
+     ; hooks for diary appointments
+     ;(add-hook 'diary-hook 'appt-make-list)
+     ;(diary 0)
+
+     ; Prevent shell commands being echoed.
+     (defun my-comint-init()
+       (setq comint-process-echoes t))
+     (add-hook 'comint-mode-hook'my-comint-init)
+
+     ; Make CPerl-mode the default
+     (defalias 'perl-mode 'cperl-mode)
+     ;(autoload 'perl-mode "cperl-mode" "alternate mode for editing Perl programs" t)
+
+
+
+     (put 'downcase-region 'disabled nil)
+
+     (put 'upcase-region 'disabled nil)
+
+
+;; Set the exact place for the ftp program.
+;     (setq ange-ftp-ftp-program-name "c:/windows/system32/ftp.exe")
+     ;; Setup so cygwin is the shell
+     ;; This assumes that Cygwin is installed in C:\cygwin (the
+     ;; default) and that C:\cygwin\bin is not already in your
+     ;; Windows Path (it generally should not be).
+     ;;
+;     (setq exec-path (cons "C:/cygwin/bin" exec-path))
+;     (setenv "PATH" (concat "C:\\cygwin\\bin;" (getenv "PATH")))
+     ;;
+     ;; NT-emacs assumes a Windows command shell, which you change
+     ;; here.
+     ;;
+     ;;(setq process-coding-system-alist '(("bash" . undecided-unix)))
+     ;;(setq shell-file-name "bash")
+     ;;(setenv "SHELL" shell-file-name)
+     ;;(setq explicit-shell-file-name shell-file-name)
+
+     (add-hook 'comint-output-filter-functions
+         'shell-strip-ctrl-m nil t)
+     (add-hook 'comint-output-filter-functions
+         'comint-watch-for-password-prompt nil t)
+     (setq explicit-shell-file-name "bash.exe")
+     ;; For subprocesses invoked via the shell
+     ;; (e.g., "shell -c command")
+     (setq shell-file-name explicit-shell-file-name)
+
+
+     ;;
+     ;; This removes unsightly ^M characters that would otherwise
+     ;; appear in the output of java applications.
+     ;;
+     (add-hook 'comint-output-filter-functions
+                   'comint-strip-ctrl-m)
+
+     ;; understand cygwin mounts
+     ;;(require 'cygwin-mount)
+     ;;(cygwin-mount-activate)
+
+     ;; PLSQL mode
+     (require 'plsql)
+     (setq auto-mode-alist
+           (append
+            '(("\\.\\(p\\(?:k[bgh]\\|ls\\)\\|sql\\|trg\\|mv\\|vew\\|dba\\)\\'" . plsql-mode))
+       auto-mode-alist))
+
+     ;; Use 4 space indents via cperl mode
+
+
+     ;; Insert spaces instead of tabs
+     (setq-default indent-tabs-mode nil)
+
+
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-selection ((t (:background "medium turquoise" :distant-foreground "black")))))
+
+     ;; org mode changes
+;     (setq load-path (cons "c:/emacs-23.3/site-lisp/org-7.7/lisp" load-path))
+;     (setq load-path (cons "c:/emacs-23.3/site-lisp/org-7.7/contrib" load-path))
+
+     ;; Log closed time on a TODO
+     ;;(set-time-zone-rule "GMT-11")
+
+
+     ;; Make sure all backup files are in the one place.
+     ;(setq backup-directory-alist '(("."."~/.emacs.d/backups")))
+
+     ;; Don't show the startup screen
+     (setq inhibit-startup-message t)
+
+     ;; Set a visible bell
+     (setq visible-bell t)
+
+;; Delete trailing whitespace
+;; Don't mess with the file formatting.
+;;(add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
+
+;; TRAMP stuff for SSH
+;; Need to have the fakecygpty.exe in the emacs bin directory.
+;;(require 'tramp)
+;;(eval-after-load "tramp"
+;;  '(progn
+;;     (add-to-list 'tramp-methods
+;;                  (mapcar
+;;                   (lambda (x)
+;;                     (cond
+;;                      ((equal x "sshx") "cygssh")
+;;                      ((eq (car x) 'tramp-login-program) (list 'tramp-login-program "fakecygpty ssh"))
+;;                      (t x)))
+;;                   (assoc "sshx" tramp-methods)))
+;;     (setq tramp-default-method "cygssh")))
+
+
+;; Now set the  default method to use the fakecygpty wrapper.
+;;(setq tramp-default-method "sshx")
+
+;;(setq tramp-auto-save-directory "~/.tramp-autosaves")
+;;(push "/prod/bin/git/bin/" tramp-remote-path)
+
+;; Org mode stuff goes here
+;; Prompt for a not when a TODO is closed
+;;(setq org-log-done 'note)
+;; Log closed time on a TODO
+;;     (set-time-zone-rule "GMT-10")
+;; Prompt for a not when a TODO is closed
+;;(setq org-log-done 'note)
+(add-to-list 'load-path "/usr/local/emacs/site-lisp/")
+;; Setup perl code completion
+;;(add-hook 'cperl-mode-hook
+;;          (lambda()
+;;            (require 'perl-completion)
+;;            (perl-completion-mode t)))
+
+;;(add-to-list 'load-path "/usr/local/emacs/site-lisp/org")
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
+(setq org-log-done 'time)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+;;     (add-to-list 'load-path "c:/emacs-23.1/site-lisp/twittering-mode-1.0.0")
+;;     (require 'twittering-mode)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+;; Map F1 to perl complete all
+;;(define-key global-map (kbd "<f1>") 'plcmp-cmd-complete-all)
+;; Set file to search for TODOs and scheduled items.
+(setq org-agenda-files (list "/cygdrive/h/Org/FujiXerox.org"))
+(setq org-log-done t)
+
+
+;; Setup capture
+;;(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-default-notes-file "/cygdrive/h/Org/capture_notes.org")
+(define-key global-map "\C-cc" 'org-capture)
+
+;;##(require 'yaml-mode)
+;;##(defun org-babel-execute:yaml (body params) body)
+
+;; active Babel languages
+;;(org-babel-do-load-languages
+;; 'org-babel-load-languages
+;; '((sql . t)
+;;   (sqlite . t)
+;;   (perl . t)
+;;   (emacs-lisp . t)
+;;   (sh . t)
+;;   (js . t)
+;;   (css . t)
+;;   (shell . t)
+;;   (calc . t)
+;;   ))
+;; Org babel settings
+(setq org-confirm-babel-evaluate nil
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t)
+
+(setq org-todo-keywords
+      '((sequence "TODO" "QUOTE" "PROD ISSUE" "WORK" "|" "PI DONE" "DONE" "QUOTE-COMPLETE" "CANCELED" "REASSIGNED")))
+
+;;Prevent editing invisible part of the buffer
+
+(setq org-catch-invisible-edits 1)
+
+(setq org-todo-keyword-faces
+      '(("TODO" . "CornflowerBlue")
+        ("QUOTE" . "blue1")
+        ("QUOTE-COMPLETE" . "SpringGreen4")
+        ("PROD ISSUE" . "red")
+        ("WORK" . "tomato")
+        ("DONE" . "SpringGreen4")
+        ("CANCELED" . "sienna1")
+        ("REASSIGNED" . "SpringGreen4")
+        )
+)
+;; Add new template 'H' for heat call log
+(eval-after-load 'org
+  '(progn
+     (add-to-list 'org-structure-template-alist '("H" "**** Heatcall log\n:OUTPUT:\n:END:\n"))
+     (add-to-list 'org-structure-template-alist '("O" ":OUTPUT:\n:END:\n"))
+     (add-to-list 'org-structure-template-alist '("W" "*** WORK \n:PROPERTIES:\n:application:  app\n:heat:\n:mips:\n:Effort:\n:CC:\n:END:\n"))
+     (add-to-list 'org-structure-template-alist '("P" "*** PROD ISSUE \n:OUTPUT:\n:END:\n"))
+     (add-to-list 'org-structure-template-alist '("Q" "*** QUOTE Heat\n"))
+     )
+  )
+
+
+;; Set clocktable format
+(setq org-time-clocksum-format (quote (:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)))
+;; Set the idle time
+(setq org-clock-idle-time 30);
+
+;;(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+;;(setq 'org-structure-template-alist '("H" "Heatcall log\n:OUTPUT:\n:END:\n"))
+
+
+
+;;Then try C-S-up, C-S-left, C-S-insert to see the effect.
+(setq vcursor-key-bindings 't)
+(load "vcursor")
+
+;; This line copy function will work in Org mode. otherwise use vcursor
+(defun line-copy-char (&optional b)
+      "Copy a character exactly below/above the point
+       to the current point of the cursor (default is above)."
+       (interactive "p")
+         (let (p col s)
+           (setq p (point))
+           (setq col (current-column))
+           (forward-line (if b -1 1))
+           (move-to-column col)
+           (setq s (buffer-substring (point) (+ (point) 1)))
+           (goto-char p)
+           (insert s)))
+(define-key global-map [f12] 'line-copy-char)
+(define-key global-map [(shift f12)] '(lambda ()(interactive)(line-copy-char nil)))
+
+;; Bash completion
+;;##(require 'bash-completion)
+;;##(bash-completion-setup)
+
+(setq calendar-latitude -37.8)
+(setq calendar-longitude 145.0)
+(setq calendar-location-name "Melbourne, AU")
+
+;; Setup holidays
+;;(load "holidays")
+(setq holiday-local-holidays
+      '(
+        (holiday-fixed 6 12 "Queens Birthday")
+        (holiday-float 11 2 1 "Melbourne Cup Day")
+        (holiday-fixed 1 1 "New Year's Day")
+        (holiday-fixed 2 14 "Valentine's Day")
+        (holiday-fixed 3 17 "St. Patrick's Day")
+        (holiday-fixed 4 25 "ANZAC Day")
+        (holiday-float 5 0 2 "Mother's Day")
+        (holiday-float 9 0 2 "Father's Day")
+        (holiday-float 3 1 1 "Labor Day")
+        (holiday-fixed 10 31 "Halloween")
+        (holiday-float 11 4 4 "Thanksgiving")
+        (holiday-fixed 12 25  "Christmas Day")
+        (holiday-fixed 12 26  "Boxing Day")
+        )
+      )
+(setq holiday-other-holidays nil)
+
+(setq holiday-general-holidays nil)     ; get rid of too U.S.-centric holidays
+(setq hebrew-holidays nil)             ; get rid of religious holidays
+(setq islamic-holidays nil)            ; get rid of religious holidays
+(setq oriental-holidays nil)            ; get rid of Oriental holidays
+(setq bahai-holidays nil)               ; get rid of Baha'i holidays
+
+;;(message "%s" "Whoo Hoo")
+(setq calendar-holidays
+      (append holiday-other-holidays
+              holiday-local-holidays))
+
+(setq url-proxy-services '(("no_proxy" . "10.*")
+                           ("http" . "ravproxy.fxdms.net:8080")
+                           ("https" . "ravproxy.fxdms.net:8080")))
+
+(setq url-http-proxy-basic-auth-storage
+      (list (list "ravproxy.fxdms.net:8080"
+                  (cons "Input your LDAP UID !"
+                        (base64-encode-string "blackmor:IwltltFX025()")))))
+
+;; enable ido mode
+;;(require 'ido)
+;;(ido-mode t)
+
+(put 'narrow-to-region 'disabled nil)
+
+
+;; Setup MELPA access
+;;;;(require 'package) ;; You might already have this line
+;;(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+;;                    (not (gnutls-available-p))))
+;;       (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
+;;  (add-to-list 'package-archives (cons "melpa" url) t))
+;;(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+;;(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+
+;;;;(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
+;;;;(add-to-list 'package-archives
+;;;;             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;;;;(package-initialize) ;; You might already have this line
+
+;; Set up move-text bindings to M-up M-down
+;;##(move-text-default-bindings)
+
+;; Setup the binding for ac-helm autocomplete using helm
+;;##(global-set-key (kbd "C-:") 'ac-complete-with-helm)
+;;##(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
+
+;; company-plsense mode
+;;(add-to-list 'company-backends 'company-plsense)
+;;(add-hook 'perl-mode-hook 'company-mode)
+;;(add-hook 'cperl-mode-hook 'company-mode)
+
+;;(define-key pabbrev-mode-map [tab] 'pabbrev-expand-maybe)
+;;(require 'helm-config)
+
+;; Use helm
+(global-set-key (kbd "M-x") #'helm-M-x)
+;;(global-set-key (kbd "<f2> b") #'helm-filtered-bookmarks)
+;;(global-set-key (kbd "<f2> f") #'helm-find-files)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(setq helm-mode 1)
+
+(require 'tramp)
+(push "/prod/bin/git/bin/" tramp-remote-path)
+
+;; global binding for Magit
+(global-set-key (kbd "C-x g") 'magit-status)
+;; set alt g to run goto line
+(global-set-key "\M-g" 'goto-line)
+;; ^-TAB to cycle through buffers
+(global-set-key [(control tab)] 'bury-buffer)
+;; turn autoindenting on
+(global-set-key "\r" 'newline-and-indent)
+
+;;(global-set-key (kbd "<C-tab>") 'next-buffer)
+;;(global-set-key (kbd "<C-S-tab>") 'previous-buffer)
+
+;; expand region key
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+;; helm config
+;;(global-set-key (kbd "M-x") #'helm-M-x)
+;;(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+;;(global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+;;(define-key global-map [f11] 'org-cut-subtree)
+;;(define-key global-map [(shift f11)] 'org-paste-subtree)
+
+;; deft
+;;(require 'deft)
+(setq deft-directory "~/HDrive/Org")
+(setq deft-extension "org")
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(setq deft-auto-save-interval 0)
+
+;; define a count/search function
+(defun search-forward-count (string count)
+  (interactive "sString: \nnCount: ")
+  (re-search-forward string nil nil count))
+
+
+;; setup xah-fly-keys 
+;;(require 'xah-fly-keys)
+
+;;(xah-fly-keys-set-layout "qwerty") ; required if you use qwerty
+
+;;(xah-fly-keys 1)
+
+;; possible layout values:
+;; "qwerty"
+;; "qwerty-abnt"
+;; "qwertz"
+;; "dvorak"
+;; "programer-dvorak"
+;; "colemak"
+;; "colemak-mod-dh"
+;; "workman"
+
+;; dvorak is the default
+
+
